@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOP & NOTCH — Affordable Luxury Clothing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:wght@200;300;400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+/* ===================== VARIABLES ===================== */
+:root {
+  --black: #111111;
+  --black2: #1a1a1a;
+  --grey-dark: #2d2d2d;
+  --grey-mid: #6b6b6b;
+  --grey-light: #c8c8c8;
+  --grey-bg: #f5f5f5;
+  --white: #ffffff;
+  --off-white: #fafafa;
+  --accent: #111111;
+  --wa-green: #25D366;
+  --font-display: 'Playfair Display', serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-heading: 'Bebas Neue', sans-serif;
+}
+
+/* ===================== RESET ===================== */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--white); color: var(--black); font-family: var(--font-body); font-weight: 300; overflow-x: hidden; cursor: none; }
+a { text-decoration: none; color: inherit; }
+button { cursor: none; border: none; background: none; font-family: var(--font-body); }
+img { display: block; width: 100%; }
+
+/* ===================== CURSOR ===================== */
+#cur { width:10px; height:10px; background:var(--black); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); transition:transform 0.15s; }
+#cur-ring { width:38px; height:38px; border:1.5px solid rgba(0,0,0,0.35); border-radius:50%; position:fixed; top:0; left:0; pointer-events:none; z-index:99998; transform:translate(-50%,-50%); transition:left 0.12s ease,top 0.12s ease,width 0.3s,height 0.3s,border-color 0.3s; }
+body.hovering #cur { transform:translate(-50%,-50%) scale(2.5); background: transparent; border: 1.5px solid var(--black); }
+body.hovering #cur-ring { width:60px; height:60px; border-color:rgba(0,0,0,0.15); }
+
+/* ===================== LOADER ===================== */
+#loader { position:fixed; inset:0; background:var(--black); z-index:100000; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:24px; }
+#loader.out { animation: loaderOut 0.7s ease forwards; }
+@keyframes loaderOut { to { opacity:0; visibility:hidden; } }
+.loader-logo-wrap { animation: loaderPop 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.3s both; display:flex; flex-direction:column; align-items:center; gap:16px; }
+@keyframes loaderPop { from { opacity:0; transform:scale(0.7); } to { opacity:1; transform:scale(1); } }
+.loader-bar-wrap { width:180px; height:1px; background:rgba(255,255,255,0.15); overflow:hidden; }
+.loader-bar { height:100%; background:var(--white); width:0; animation: barFill 1.6s ease 0.5s forwards; }
+@keyframes barFill { to { width:100%; } }
+.loader-tagline { font-family:var(--font-body); font-weight:200; font-size:0.65rem; letter-spacing:0.45em; text-transform:uppercase; color:rgba(255,255,255,0.4); animation: loaderPop 0.9s cubic-bezier(0.34,1.56,0.64,1) 0.5s both; }
+
+/* ===================== NAV ===================== */
+nav { position:fixed; top:0; left:0; right:0; z-index:1000; height:70px; display:flex; align-items:center; justify-content:space-between; padding:0 5vw; background:rgba(255,255,255,0.95); backdrop-filter:blur(20px); border-bottom:1px solid rgba(0,0,0,0.06); transition:all 0.4s; }
+nav.scrolled { box-shadow: 0 4px 30px rgba(0,0,0,0.08); }
+.nav-left { display:flex; align-items:center; gap:14px; }
+.nav-logo-text-wrap { display:flex; flex-direction:column; line-height:1; }
+.nav-brand { font-family:var(--font-heading); font-size:1.5rem; letter-spacing:0.18em; color:var(--black); }
+.nav-tagline-small { font-size:0.52rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--grey-mid); font-weight:400; margin-top:2px; }
+.nav-center { display:flex; gap:36px; }
+.nav-center a { font-size:0.75rem; font-weight:400; letter-spacing:0.12em; text-transform:uppercase; color:var(--grey-mid); position:relative; transition:color 0.3s; }
+.nav-center a::after { content:''; position:absolute; bottom:-3px; left:0; right:0; height:1.5px; background:var(--black); transform:scaleX(0); transform-origin:left; transition:transform 0.3s ease; }
+.nav-center a:hover { color:var(--black); }
+.nav-center a:hover::after { transform:scaleX(1); }
+.nav-right { display:flex; align-items:center; gap:12px; }
+.nav-wa-btn { display:flex; align-items:center; gap:8px; padding:9px 20px; background:var(--black); color:var(--white); font-size:0.72rem; font-weight:500; letter-spacing:0.1em; text-transform:uppercase; transition:all 0.3s; }
+.nav-wa-btn:hover { background:var(--grey-dark); transform:translateY(-1px); }
+.nav-icon-btn { width:38px; height:38px; display:flex; align-items:center; justify-content:center; border:1.5px solid rgba(0,0,0,0.12); color:var(--grey-mid); font-size:1rem; transition:all 0.3s; }
+.nav-icon-btn:hover { border-color:var(--black); color:var(--black); }
+
+/* ===================== HERO ===================== */
+.hero { min-height:100vh; display:grid; grid-template-columns:1fr 1fr; background:var(--white); padding-top:70px; overflow:hidden; }
+.hero-left { display:flex; flex-direction:column; justify-content:center; padding:80px 5vw 80px 7vw; position:relative; }
+.hero-left::after { content:''; position:absolute; right:0; top:10%; bottom:10%; width:1px; background:linear-gradient(to bottom, transparent, rgba(0,0,0,0.08), transparent); }
+.hero-eyebrow { display:inline-flex; align-items:center; gap:12px; font-size:0.65rem; letter-spacing:0.45em; text-transform:uppercase; color:var(--grey-mid); margin-bottom:28px; }
+.hero-eyebrow-line { width:36px; height:1px; background:var(--grey-light); }
+.hero-h1 { font-family:var(--font-display); font-size:clamp(3.5rem,6vw,6rem); font-weight:400; line-height:1.05; letter-spacing:-0.02em; margin-bottom:28px; }
+.hero-h1 em { font-style:italic; }
+.hero-h1 .outline { -webkit-text-stroke:1.5px var(--black); color:transparent; }
+.hero-desc { font-size:1rem; font-weight:300; line-height:1.85; color:var(--grey-mid); max-width:440px; margin-bottom:48px; }
+.hero-actions { display:flex; gap:14px; flex-wrap:wrap; margin-bottom:60px; }
+.btn-black { display:inline-flex; align-items:center; gap:10px; padding:15px 36px; background:var(--black); color:var(--white); font-size:0.75rem; font-weight:500; letter-spacing:0.18em; text-transform:uppercase; transition:all 0.3s; position:relative; overflow:hidden; }
+.btn-black::before { content:''; position:absolute; inset:0; background:var(--grey-dark); transform:translateX(-100%); transition:transform 0.4s ease; }
+.btn-black:hover::before { transform:translateX(0); }
+.btn-black span { position:relative; z-index:1; }
+.btn-outline { display:inline-flex; align-items:center; gap:10px; padding:14px 36px; background:transparent; color:var(--black); border:1.5px solid rgba(0,0,0,0.2); font-size:0.75rem; font-weight:400; letter-spacing:0.18em; text-transform:uppercase; transition:all 0.3s; }
+.btn-outline:hover { border-color:var(--black); background:var(--black); color:var(--white); }
+.hero-stats { display:flex; gap:40px; }
+.stat-item { display:flex; flex-direction:column; gap:4px; }
+.stat-num { font-family:var(--font-heading); font-size:2.4rem; letter-spacing:0.05em; line-height:1; }
+.stat-label { font-size:0.65rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--grey-mid); }
+
+/* HERO RIGHT - PRODUCT SHOWCASE */
+.hero-right { background:var(--grey-bg); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+.hero-right::before { content:'TOP & NOTCH'; position:absolute; font-family:var(--font-heading); font-size:12vw; color:rgba(0,0,0,0.03); letter-spacing:0.08em; white-space:nowrap; pointer-events:none; }
+.hero-product-showcase { position:relative; width:320px; }
+.hero-main-card { background:var(--white); padding:0; box-shadow:0 20px 80px rgba(0,0,0,0.12); position:relative; }
+.hero-card-img { aspect-ratio:3/4; background:linear-gradient(160deg,#f0f0f0,#e0e0e0); display:flex; align-items:center; justify-content:center; position:relative; overflow:hidden; }
+.hero-card-img svg { width:60%; height:60%; opacity:0.35; }
+.hero-card-badge { position:absolute; top:16px; left:0; background:var(--black); color:var(--white); font-size:0.6rem; font-weight:500; letter-spacing:0.2em; text-transform:uppercase; padding:6px 14px; }
+.hero-card-body { padding:20px 22px; border-top:1px solid rgba(0,0,0,0.06); }
+.hero-card-cat { font-size:0.62rem; letter-spacing:0.28em; text-transform:uppercase; color:var(--grey-mid); margin-bottom:6px; }
+.hero-card-name { font-family:var(--font-display); font-size:1.1rem; font-weight:400; margin-bottom:4px; }
+.hero-card-price { font-size:1rem; font-weight:500; }
+.hero-float-1 { position:absolute; top:-20px; right:-30px; background:var(--white); border:1px solid rgba(0,0,0,0.07); padding:14px 18px; box-shadow:0 8px 32px rgba(0,0,0,0.1); animation:float1 5s ease-in-out infinite; }
+.hero-float-2 { position:absolute; bottom:40px; left:-40px; background:var(--white); border:1px solid rgba(0,0,0,0.07); padding:14px 18px; box-shadow:0 8px 32px rgba(0,0,0,0.1); animation:float2 6s ease-in-out infinite; }
+@keyframes float1 { 0%,100%{transform:translateY(0) rotate(1deg)} 50%{transform:translateY(-12px) rotate(-1deg)} }
+@keyframes float2 { 0%,100%{transform:translateY(0) rotate(-1deg)} 50%{transform:translateY(-16px) rotate(1deg)} }
+.float-label { font-size:0.58rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--grey-mid); margin-bottom:5px; }
+.float-val { font-family:var(--font-heading); font-size:1.6rem; letter-spacing:0.05em; line-height:1; }
+.float-sub { font-size:0.7rem; color:var(--grey-mid); }
+.wa-live-badge { position:absolute; bottom:-20px; right:20px; background:var(--black); color:var(--white); display:flex; align-items:center; gap:8px; padding:10px 16px; }
+.wa-live-dot { width:7px; height:7px; background:var(--wa-green); border-radius:50%; animation:blink 1.5s ease-in-out infinite; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.wa-live-text { font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; }
+
+/* ===================== MARQUEE ===================== */
+.marquee-band { padding:14px 0; background:var(--black); overflow:hidden; }
+.marquee-track { display:flex; animation:marquee 22s linear infinite; white-space:nowrap; }
+.marquee-item { display:inline-flex; align-items:center; gap:22px; padding:0 22px; font-family:var(--font-heading); font-size:1rem; letter-spacing:0.22em; color:var(--white); }
+.marquee-sep { width:5px; height:5px; background:rgba(255,255,255,0.25); border-radius:50%; }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+/* ===================== CATEGORIES ===================== */
+.categories-section { padding:100px 6vw; background:var(--white); }
+.sec-header { margin-bottom:60px; }
+.sec-eyebrow { display:inline-flex; align-items:center; gap:14px; font-size:0.65rem; letter-spacing:0.4em; text-transform:uppercase; color:var(--grey-mid); margin-bottom:16px; }
+.sec-eyebrow::before { content:''; width:32px; height:1px; background:var(--grey-light); }
+.sec-title { font-family:var(--font-display); font-size:clamp(2rem,4vw,3.2rem); font-weight:400; line-height:1.2; letter-spacing:-0.02em; }
+.sec-title em { font-style:italic; }
+.categories-grid { display:grid; grid-template-columns:repeat(4,1fr) 2fr; gap:2px; }
+.cat-card { position:relative; overflow:hidden; cursor:none; }
+.cat-card.tall { grid-row:span 2; }
+.cat-card-bg { aspect-ratio:1; background:var(--grey-bg); position:relative; overflow:hidden; transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+.cat-card.tall .cat-card-bg { aspect-ratio:unset; height:100%; }
+.cat-card:hover .cat-card-bg { transform:scale(1.04); }
+.cat-icon-wrap { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; }
+.cat-icon-wrap svg { width:40%; height:40%; opacity:0.2; transition:opacity 0.4s,transform 0.4s; }
+.cat-card:hover .cat-icon-wrap svg { opacity:0.35; transform:scale(1.05); }
+.cat-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(0,0,0,0.7) 0%,transparent 60%); opacity:0; transition:opacity 0.4s; }
+.cat-card:hover .cat-overlay { opacity:1; }
+.cat-label { position:absolute; bottom:0; left:0; right:0; padding:18px 20px; transform:translateY(8px); opacity:0; transition:all 0.4s; }
+.cat-card:hover .cat-label { transform:translateY(0); opacity:1; }
+.cat-label-name { font-family:var(--font-display); font-size:1.1rem; font-weight:500; color:var(--white); letter-spacing:0.03em; margin-bottom:2px; }
+.cat-label-count { font-size:0.68rem; letter-spacing:0.2em; text-transform:uppercase; color:rgba(255,255,255,0.6); }
+.cat-name-static { text-align:center; padding:14px 8px; font-size:0.72rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:400; color:var(--grey-mid); background:var(--white); border-top:1px solid rgba(0,0,0,0.05); transition:all 0.3s; }
+.cat-card:hover .cat-name-static { color:var(--black); background:var(--grey-bg); }
+
+/* ===================== PRODUCTS SECTION ===================== */
+.products-section { padding:100px 0; background:var(--off-white); }
+.products-section .sec-header { padding:0 6vw; }
+.filter-bar { display:flex; align-items:center; gap:0; padding:0 6vw; margin-bottom:50px; border-bottom:1px solid rgba(0,0,0,0.08); overflow-x:auto; }
+.filter-bar::-webkit-scrollbar { display:none; }
+.filter-tab { padding:14px 28px; font-size:0.72rem; letter-spacing:0.16em; text-transform:uppercase; font-weight:400; color:var(--grey-mid); white-space:nowrap; border-bottom:2px solid transparent; transition:all 0.3s; margin-bottom:-1px; }
+.filter-tab.active, .filter-tab:hover { color:var(--black); border-bottom-color:var(--black); }
+.products-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:2px; padding:0 6vw; }
+.product-card { background:var(--white); position:relative; overflow:hidden; }
+.product-img-wrap { aspect-ratio:3/4; background:var(--grey-bg); position:relative; overflow:hidden; }
+.product-img-wrap svg { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:55%; height:55%; opacity:0.18; transition:opacity 0.4s,transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+.product-card:hover .product-img-wrap svg { opacity:0.28; transform:translate(-50%,-50%) scale(1.06); }
+.product-img-bg { position:absolute; inset:0; transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); }
+.product-card:hover .product-img-bg { transform:scale(1.04); }
+.product-tag { position:absolute; top:14px; left:0; font-size:0.58rem; letter-spacing:0.18em; text-transform:uppercase; font-weight:500; padding:5px 12px; }
+.tag-new { background:var(--black); color:var(--white); }
+.tag-hot { background:#e53935; color:var(--white); }
+.tag-sale { background:#333; color:var(--white); }
+.product-actions { position:absolute; bottom:0; left:0; right:0; display:flex; gap:2px; transform:translateY(100%); transition:transform 0.4s cubic-bezier(0.25,0.46,0.45,0.94); }
+.product-card:hover .product-actions { transform:translateY(0); }
+.pa-btn { flex:1; padding:13px 8px; background:var(--black); color:var(--white); font-size:0.67rem; letter-spacing:0.14em; text-transform:uppercase; font-weight:500; text-align:center; transition:background 0.3s; }
+.pa-btn:hover { background:var(--grey-dark); }
+.pa-btn.wa { background:var(--wa-green); color:#fff; flex:0 0 52px; display:flex; align-items:center; justify-content:center; }
+.pa-btn.wa:hover { background:#1da851; }
+.product-info { padding:18px 20px; border-top:1px solid rgba(0,0,0,0.05); }
+.pi-cat { font-size:0.6rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--grey-mid); margin-bottom:6px; }
+.pi-name { font-family:var(--font-display); font-size:1rem; font-weight:400; line-height:1.35; margin-bottom:8px; }
+.pi-detail { font-size:0.72rem; color:var(--grey-mid); margin-bottom:12px; }
+.pi-footer { display:flex; align-items:center; justify-content:space-between; }
+.pi-price { font-size:1.1rem; font-weight:500; letter-spacing:0.02em; }
+.pi-price .orig { font-size:0.8rem; color:var(--grey-mid); text-decoration:line-through; margin-right:6px; }
+.pi-sizes { display:flex; gap:5px; }
+.size-dot { width:26px; height:26px; border:1px solid rgba(0,0,0,0.15); font-size:0.58rem; font-weight:500; display:flex; align-items:center; justify-content:center; letter-spacing:0.05em; transition:all 0.2s; }
+.size-dot:hover { background:var(--black); color:var(--white); border-color:var(--black); }
+
+/* ===================== WHATSAPP SECTION ===================== */
+.wa-section { padding:100px 6vw; background:var(--black); color:var(--white); display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; }
+.wa-left .sec-eyebrow { color:rgba(255,255,255,0.35); }
+.wa-left .sec-eyebrow::before { background:rgba(255,255,255,0.15); }
+.wa-left .sec-title { color:var(--white); }
+.wa-left .sec-title em { color:var(--wa-green); }
+.wa-desc { font-size:0.95rem; line-height:1.9; color:rgba(255,255,255,0.55); margin:24px 0 40px; max-width:480px; }
+.wa-steps { display:flex; flex-direction:column; gap:0; }
+.wa-step { display:flex; gap:20px; padding:22px 0; border-bottom:1px solid rgba(255,255,255,0.06); }
+.wa-step-num { width:36px; height:36px; background:rgba(255,255,255,0.06); display:flex; align-items:center; justify-content:center; font-family:var(--font-heading); font-size:1.1rem; flex-shrink:0; letter-spacing:0.05em; }
+.wa-step-text h4 { font-size:0.88rem; font-weight:500; letter-spacing:0.06em; margin-bottom:5px; }
+.wa-step-text p { font-size:0.8rem; color:rgba(255,255,255,0.45); line-height:1.7; }
+.wa-cta-row { display:flex; gap:12px; margin-top:40px; }
+.btn-wa-green { display:inline-flex; align-items:center; gap:10px; padding:15px 32px; background:var(--wa-green); color:var(--white); font-size:0.75rem; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; transition:all 0.3s; }
+.btn-wa-green:hover { background:#1da851; transform:translateY(-2px); }
+.btn-white-outline { display:inline-flex; align-items:center; gap:10px; padding:14px 32px; background:transparent; color:rgba(255,255,255,0.7); border:1.5px solid rgba(255,255,255,0.15); font-size:0.75rem; font-weight:400; letter-spacing:0.14em; text-transform:uppercase; transition:all 0.3s; }
+.btn-white-outline:hover { border-color:rgba(255,255,255,0.5); color:var(--white); }
+
+/* PHONE MOCKUP */
+.wa-phone { max-width:300px; margin:0 auto; }
+.phone-shell { background:#1c1c1e; border-radius:44px; padding:10px; box-shadow: 0 50px 120px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.06), inset 0 0 0 1px rgba(255,255,255,0.03); }
+.phone-inner { background:#000; border-radius:36px; overflow:hidden; }
+.phone-status { display:flex; justify-content:space-between; align-items:center; padding:14px 22px 8px; background:#000; }
+.phone-time { font-size:0.78rem; font-weight:600; color:#fff; letter-spacing:0.02em; }
+.phone-icons { display:flex; gap:5px; align-items:center; }
+.phone-icons span { font-size:0.65rem; color:#fff; }
+.wa-chat-header { background:#1f2c34; padding:10px 16px; display:flex; align-items:center; gap:12px; }
+.wa-avatar { width:38px; height:38px; border-radius:50%; background:linear-gradient(135deg,#2d2d2d,#111); display:flex; align-items:center; justify-content:center; flex-shrink:0; overflow:hidden; }
+.wa-group-info { flex:1; }
+.wa-group-name { font-size:0.88rem; font-weight:500; color:#e9edef; }
+.wa-group-status { font-size:0.68rem; color:#8696a0; }
+.wa-messages { background:#0b141a; padding:14px 12px; display:flex; flex-direction:column; gap:8px; max-height:380px; overflow-y:auto; }
+.wa-messages::-webkit-scrollbar { display:none; }
+.wa-bubble { max-width:85%; border-radius:8px; padding:9px 12px; font-size:0.78rem; line-height:1.55; }
+.wa-bubble.in { background:#1f2c34; color:#e9edef; align-self:flex-start; border-radius:0 8px 8px 8px; }
+.wa-bubble.out { background:#005c4b; color:#e9edef; align-self:flex-end; border-radius:8px 0 8px 8px; }
+.wa-img-bubble { align-self:flex-start; max-width:88%; }
+.wa-img-inner { background:#1a2830; border-radius:0 8px 8px 8px; overflow:hidden; }
+.wa-img-thumb { height:160px; background:linear-gradient(135deg,#1a2830,#243540); display:flex; align-items:center; justify-content:center; font-size:0.75rem; color:rgba(255,255,255,0.3); letter-spacing:0.1em; position:relative; }
+.wa-img-count { position:absolute; bottom:10px; right:10px; background:rgba(0,0,0,0.6); color:#fff; font-size:0.65rem; padding:4px 8px; border-radius:4px; }
+.wa-img-caption { padding:8px 12px 10px; font-size:0.78rem; color:#e9edef; line-height:1.55; background:#1f2c34; }
+.wa-time-label { font-size:0.6rem; color:#8696a0; text-align:right; margin-top:3px; }
+.wa-sys-msg { text-align:center; font-size:0.68rem; color:#8696a0; background:rgba(134,150,160,0.08); padding:6px 14px; border-radius:8px; align-self:center; }
+.wa-input-row { background:#1f2c34; padding:10px 12px; display:flex; align-items:center; gap:10px; }
+.wa-input-mock { flex:1; background:#2a3942; border-radius:22px; padding:9px 16px; font-size:0.78rem; color:rgba(233,237,239,0.4); }
+.wa-send-mock { width:40px; height:40px; background:#00a884; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1rem; }
+
+/* ===================== NEW ARRIVALS TICKER ===================== */
+.ticker-section { padding:28px 0; background:var(--grey-bg); border-top:1px solid rgba(0,0,0,0.06); border-bottom:1px solid rgba(0,0,0,0.06); overflow:hidden; }
+.ticker-track { display:flex; animation:marquee 18s linear infinite; }
+.ticker-item { display:inline-flex; align-items:center; gap:16px; padding:0 20px; font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--grey-mid); white-space:nowrap; }
+.ticker-img { width:44px; height:44px; background:var(--grey-light); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+.ticker-name { color:var(--black); font-weight:500; }
+.ticker-price { color:var(--grey-mid); }
+.ticker-sep2 { color:var(--grey-light); font-size:1.2rem; }
+
+/* ===================== LOOK BOOK STRIP ===================== */
+.lookbook { padding:100px 0; background:var(--white); overflow:hidden; }
+.lookbook .sec-header { padding:0 6vw; margin-bottom:50px; }
+.lb-scroll { display:flex; gap:3px; overflow-x:auto; padding:0 6vw 0 6vw; }
+.lb-scroll::-webkit-scrollbar { display:none; }
+.lb-item { flex-shrink:0; position:relative; overflow:hidden; }
+.lb-item:nth-child(odd) { width:260px; }
+.lb-item:nth-child(even) { width:200px; }
+.lb-item-bg { aspect-ratio:2/3; background:var(--grey-bg); display:flex; align-items:center; justify-content:center; transition:transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94); font-size:2.5rem; color:rgba(0,0,0,0.12); }
+.lb-item:hover .lb-item-bg { transform:scale(1.04); }
+.lb-item-caption { position:absolute; bottom:0; left:0; right:0; padding:14px 16px; background:linear-gradient(to top,rgba(0,0,0,0.7),transparent); color:var(--white); opacity:0; transition:opacity 0.4s; }
+.lb-item:hover .lb-item-caption { opacity:1; }
+.lb-cap-name { font-family:var(--font-display); font-size:0.9rem; font-weight:500; }
+.lb-cap-price { font-size:0.72rem; opacity:0.75; }
+
+/* ===================== WHY US ===================== */
+.why-section { padding:100px 6vw; background:var(--grey-bg); }
+.why-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:2px; margin-top:60px; }
+.why-card { background:var(--white); padding:44px 36px; position:relative; overflow:hidden; transition:transform 0.3s; }
+.why-card:hover { transform:translateY(-4px); box-shadow:0 20px 60px rgba(0,0,0,0.1); }
+.why-card-num { font-family:var(--font-heading); font-size:5rem; color:rgba(0,0,0,0.04); line-height:1; margin-bottom:16px; }
+.why-card-icon { font-size:2rem; margin-bottom:18px; }
+.why-card-title { font-family:var(--font-display); font-size:1.2rem; font-weight:500; margin-bottom:12px; }
+.why-card-text { font-size:0.82rem; line-height:1.85; color:var(--grey-mid); }
+
+/* ===================== TESTIMONIALS ===================== */
+.testi-section { padding:100px 6vw; background:var(--white); }
+.testi-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-top:60px; }
+.testi-card { background:var(--grey-bg); padding:40px 36px; position:relative; }
+.testi-quote-mark { font-family:var(--font-display); font-size:5rem; line-height:0.8; color:rgba(0,0,0,0.07); margin-bottom:16px; }
+.testi-stars { color:#111; font-size:0.8rem; letter-spacing:4px; margin-bottom:16px; }
+.testi-text { font-family:var(--font-display); font-size:1rem; font-style:italic; font-weight:400; line-height:1.75; color:var(--black); margin-bottom:24px; }
+.testi-author { font-size:0.7rem; letter-spacing:0.22em; text-transform:uppercase; color:var(--grey-mid); }
+.testi-wa { display:flex; align-items:center; gap:8px; margin-top:16px; padding-top:16px; border-top:1px solid rgba(0,0,0,0.07); font-size:0.65rem; letter-spacing:0.15em; text-transform:uppercase; color:var(--wa-green); }
+
+/* ===================== BANNER CTA ===================== */
+.cta-banner { padding:120px 6vw; background:var(--black); position:relative; overflow:hidden; text-align:center; }
+.cta-banner::before { content:''; position:absolute; width:800px; height:800px; background:radial-gradient(circle,rgba(255,255,255,0.03),transparent); border-radius:50%; top:50%; left:50%; transform:translate(-50%,-50%); }
+.cta-grid-lines { position:absolute; inset:0; background-image:linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px); background-size:50px 50px; }
+.cta-content { position:relative; z-index:1; }
+.cta-h { font-family:var(--font-display); font-size:clamp(2.8rem,6vw,5.5rem); font-weight:400; line-height:1.1; letter-spacing:-0.02em; color:var(--white); margin-bottom:20px; }
+.cta-h em { font-style:italic; color:rgba(255,255,255,0.5); }
+.cta-sub { font-size:1rem; font-weight:300; color:rgba(255,255,255,0.4); max-width:500px; margin:0 auto 50px; line-height:1.8; }
+.cta-actions { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.cta-member-count { display:flex; align-items:center; gap:8px; justify-content:center; margin-top:32px; font-size:0.72rem; letter-spacing:0.15em; text-transform:uppercase; color:rgba(255,255,255,0.3); }
+.cta-avatars { display:flex; }
+.cta-av { width:28px; height:28px; border-radius:50%; background:var(--grey-dark); border:2px solid var(--black); margin-left:-8px; font-size:0.7rem; display:flex; align-items:center; justify-content:center; }
+.cta-av:first-child { margin-left:0; }
+
+/* ===================== FOOTER ===================== */
+footer { background:var(--black); color:var(--white); padding:80px 6vw 32px; border-top:1px solid rgba(255,255,255,0.04); }
+.footer-top { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:60px; margin-bottom:70px; }
+.footer-brand { }
+.footer-logo-row { display:flex; align-items:center; gap:14px; margin-bottom:18px; }
+.footer-brand-name { font-family:var(--font-heading); font-size:1.8rem; letter-spacing:0.2em; }
+.footer-tagline { font-size:0.62rem; letter-spacing:0.32em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:18px; }
+.footer-desc { font-size:0.82rem; line-height:1.9; color:rgba(255,255,255,0.4); max-width:300px; margin-bottom:28px; }
+.footer-social { display:flex; gap:10px; }
+.fs-link { width:36px; height:36px; border:1px solid rgba(255,255,255,0.1); display:flex; align-items:center; justify-content:center; font-size:0.85rem; color:rgba(255,255,255,0.4); transition:all 0.3s; }
+.fs-link:hover { border-color:rgba(255,255,255,0.5); color:var(--white); }
+.footer-col-title { font-size:0.65rem; letter-spacing:0.35em; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:22px; }
+.footer-links { list-style:none; display:flex; flex-direction:column; gap:12px; }
+.footer-links a { font-size:0.82rem; color:rgba(255,255,255,0.45); letter-spacing:0.04em; transition:color 0.3s; }
+.footer-links a:hover { color:var(--white); }
+.footer-wa-box { margin-top:0; padding:20px; background:rgba(37,211,102,0.06); border:1px solid rgba(37,211,102,0.12); }
+.fwa-title { font-size:0.62rem; letter-spacing:0.25em; text-transform:uppercase; color:var(--wa-green); margin-bottom:8px; }
+.fwa-text { font-size:0.8rem; color:rgba(255,255,255,0.45); line-height:1.7; margin-bottom:12px; }
+.fwa-btn { display:inline-flex; align-items:center; gap:8px; padding:8px 18px; background:var(--wa-green); color:var(--white); font-size:0.68rem; font-weight:500; letter-spacing:0.12em; text-transform:uppercase; transition:background 0.3s; }
+.fwa-btn:hover { background:#1da851; }
+.footer-bottom { padding-top:28px; border-top:1px solid rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:space-between; }
+.footer-copy { font-size:0.72rem; color:rgba(255,255,255,0.25); letter-spacing:0.06em; }
+.footer-copy a { color:rgba(255,255,255,0.4); }
+
+/* ===================== SCROLL REVEAL ===================== */
+.sr { opacity:0; transform:translateY(28px); transition:opacity 0.8s ease, transform 0.8s ease; }
+.sr.vis { opacity:1; transform:translateY(0); }
+
+/* ===================== RESPONSIVE ===================== */
+@media (max-width:1024px) {
+  .hero { grid-template-columns:1fr; }
+  .hero-right { display:none; }
+  .categories-grid { grid-template-columns:repeat(3,1fr); }
+  .why-grid { grid-template-columns:repeat(2,1fr); }
+  .footer-top { grid-template-columns:1fr 1fr; gap:40px; }
+}
+@media (max-width:768px) {
+  .nav-center, .nav-wa-btn { display:none; }
+  .categories-grid { grid-template-columns:repeat(2,1fr); }
+  .testi-grid { grid-template-columns:1fr; }
+  .wa-section { grid-template-columns:1fr; }
+  .footer-top { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- CURSOR -->
+<div id="cur"></div>
+<div id="cur-ring"></div>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo-wrap">
+    <!-- THE REAL LOGO: interlocking chain-link pattern -->
+    <svg width="72" height="72" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- TOP LINK -->
+      <path d="M35 18 C35 10 42 5 50 5 C58 5 65 10 65 18 L65 30 C65 38 58 43 50 43 C42 43 35 38 35 30 Z" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <!-- RIGHT LINK -->
+      <path d="M57 35 C65 35 70 42 70 50 C70 58 65 65 57 65 L45 65 C37 65 32 58 32 50 C32 42 37 35 45 35 Z" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <!-- BOTTOM LINK -->
+      <path d="M65 70 C65 78 58 83 50 83 C42 83 35 78 35 70 L35 58 C35 50 42 45 50 45 C58 45 65 50 65 58 Z" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <!-- LEFT LINK -->
+      <path d="M43 65 C35 65 30 58 30 50 C30 42 35 35 43 35 L55 35 C63 35 68 42 68 50 C68 58 63 65 55 65 Z" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:2rem;letter-spacing:0.25em;color:white;">TOP & NOTCH</div>
+  </div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
+  <div class="loader-tagline">Affordable Luxury Clothing</div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div class="nav-left">
+    <svg width="38" height="38" viewBox="0 0 100 100" fill="none">
+      <path d="M35 18 C35 10 42 5 50 5 C58 5 65 10 65 18 L65 30 C65 38 58 43 50 43 C42 43 35 38 35 30 Z" stroke="#111" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M57 35 C65 35 70 42 70 50 C70 58 65 65 57 65 L45 65 C37 65 32 58 32 50 C32 42 37 35 45 35 Z" stroke="#111" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M65 70 C65 78 58 83 50 83 C42 83 35 78 35 70 L35 58 C35 50 42 45 50 45 C58 45 65 50 65 58 Z" stroke="#111" stroke-width="8" fill="none" stroke-linecap="round"/>
+      <path d="M43 65 C35 65 30 58 30 50 C30 42 35 35 43 35 L55 35 C63 35 68 42 68 50 C68 58 63 65 55 65 Z" stroke="#111" stroke-width="8" fill="none" stroke-linecap="round"/>
+    </svg>
+    <div class="nav-logo-text-wrap">
+      <div class="nav-brand">TOP & NOTCH</div>
+      <div class="nav-tagline-small">Affordable Luxury Clothing</div>
+    </div>
+  </div>
+  <div class="nav-center">
+    <a href="#categories">Categories</a>
+    <a href="#products">Products</a>
+    <a href="#whatsapp">WhatsApp</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <div class="nav-right">
+    <div class="nav-icon-btn" title="Search">🔍</div>
+    <div class="nav-icon-btn" title="Cart">🛒</div>
+    <a href="https://wa.me/91XXXXXXXXXX" class="nav-wa-btn" target="_blank">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Order on WhatsApp
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow"><span class="hero-eyebrow-line"></span>New Collection 2026</div>
+    <h1 class="hero-h1">
+      Style That<br>
+      <em>Speaks</em><br>
+      <span class="outline">Volumes</span>
+    </h1>
+    <p class="hero-desc">From breezy kurtis to sharp formals, streetwear to accessories — Top & Notch brings you exclusive daily drops, straight from our WhatsApp community to your door.</p>
+    <div class="hero-actions">
+      <a href="#products" class="btn-black"><span>Shop Collection</span><span>→</span></a>
+      <a href="#whatsapp" class="btn-outline">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Join WhatsApp
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item"><div class="stat-num">2.4K+</div><div class="stat-label">Members</div></div>
+      <div class="stat-item"><div class="stat-num">15+</div><div class="stat-label">Daily Drops</div></div>
+      <div class="stat-item"><div class="stat-num">500+</div><div class="stat-label">Styles</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-product-showcase">
+      <div class="hero-float-1">
+        <div class="float-label">Today's Drop</div>
+        <div class="float-val">14 <span style="font-size:1rem;color:var(--grey-mid);">styles</span></div>
+        <div class="float-sub">Posted 2 hrs ago</div>
+      </div>
+      <div class="hero-main-card">
+        <div class="hero-card-img">
+          <svg viewBox="0 0 100 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M30 10 L10 40 L5 70 L25 70 L23 140 L77 140 L75 70 L95 70 L90 40 L70 10 Q50 18 30 10Z" fill="rgba(0,0,0,0.08)" stroke="rgba(0,0,0,0.18)" stroke-width="1.5"/>
+            <path d="M38 10 Q50 17 62 10" stroke="rgba(0,0,0,0.2)" stroke-width="1.5" fill="none"/>
+          </svg>
+          <div class="hero-card-badge">New Drop</div>
+        </div>
+        <div class="hero-card-body">
+          <div class="hero-card-cat">Kurti</div>
+          <div class="hero-card-name">Embroidered Cotton Set</div>
+          <div class="hero-card-price">₹ 1,199</div>
+        </div>
+      </div>
+      <div class="hero-float-2">
+        <div class="float-label">Group Members</div>
+        <div class="float-val">2,400+</div>
+        <div class="float-sub" style="color:var(--wa-green);display:flex;align-items:center;gap:5px;margin-top:2px;"><span style="width:6px;height:6px;background:var(--wa-green);border-radius:50%;display:inline-block;"></span> Active now</div>
+      </div>
+      <div class="wa-live-badge">
+        <div class="wa-live-dot"></div>
+        <div class="wa-live-text">Live drops on WhatsApp</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-band">
+  <div class="marquee-track">
+    <span class="marquee-item">Kurtis <span class="marquee-sep"></span></span>
+    <span class="marquee-item">T-Shirts <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Jeans <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Formal Shirts <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Dresses <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Watches <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Sunglasses <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Co-ord Sets <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Sarees <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Trousers <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Jackets <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Accessories <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Kurtis <span class="marquee-sep"></span></span>
+    <span class="marquee-item">T-Shirts <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Jeans <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Formal Shirts <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Dresses <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Watches <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Sunglasses <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Co-ord Sets <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Sarees <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Trousers <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Jackets <span class="marquee-sep"></span></span>
+    <span class="marquee-item">Accessories <span class="marquee-sep"></span></span>
+  </div>
+</div>
+
+<!-- CATEGORIES -->
+<section class="categories-section" id="categories">
+  <div class="sec-header sr">
+    <div class="sec-eyebrow">Browse By Category</div>
+    <h2 class="sec-title">Shop Every <em>Style</em></h2>
+  </div>
+  <div class="categories-grid">
+    <!-- Women's Wear -->
+    <div class="cat-card sr" onclick="filterProducts('kurtis')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#f8f8f8,#ececec);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 100 140" fill="none"><path d="M30 10 L10 40 L5 70 L25 70 L23 140 L77 140 L75 70 L95 70 L90 40 L70 10 Q50 18 30 10Z" fill="#111" stroke="#111" stroke-width="1"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Kurtis & Sets</div><div class="cat-label-count">45+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Kurtis & Sets</div>
+    </div>
+    <!-- Dresses -->
+    <div class="cat-card sr" style="transition-delay:0.05s" onclick="filterProducts('dresses')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#f5f5f5,#e8e8e8);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 100 140" fill="none"><path d="M35 5 Q50 12 65 5 L80 30 L95 55 L68 60 L68 140 L32 140 L32 60 L5 55 L20 30 Z" fill="#111" stroke="#111" stroke-width="1"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Dresses</div><div class="cat-label-count">38+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Dresses</div>
+    </div>
+    <!-- T-Shirts -->
+    <div class="cat-card sr" style="transition-delay:0.1s" onclick="filterProducts('tshirts')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#f0f0f0,#e5e5e5);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 100 100" fill="none"><path d="M25 10 L5 35 L20 42 L20 90 L80 90 L80 42 L95 35 L75 10 Q62 20 50 18 Q38 20 25 10Z" fill="#111" stroke="#111" stroke-width="1"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">T-Shirts</div><div class="cat-label-count">60+ styles</div></div>
+      </div>
+      <div class="cat-name-static">T-Shirts</div>
+    </div>
+    <!-- Jeans -->
+    <div class="cat-card sr" style="transition-delay:0.15s" onclick="filterProducts('jeans')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#efefef,#e2e2e2);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 90 140" fill="none"><path d="M10 5 L5 55 L20 55 L30 140 L45 140 L50 90 L55 140 L70 140 L80 55 L85 55 L80 5 Z" fill="#111" stroke="#111" stroke-width="1"/><line x1="45" y1="5" x2="45" y2="55" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Jeans</div><div class="cat-label-count">30+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Jeans</div>
+    </div>
+    <!-- TALL CARD: Sarees -->
+    <div class="cat-card tall sr" style="transition-delay:0.2s" onclick="filterProducts('sarees')">
+      <div class="cat-card-bg" style="background:linear-gradient(160deg,#1a1a1a,#333);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 100 180" fill="none" style="opacity:0.4;"><path d="M10 10 L90 10 L85 180 L15 180 Z" fill="white" stroke="white" stroke-width="1"/><path d="M10 10 Q50 40 90 10" stroke="rgba(255,255,255,0.5)" stroke-width="2" fill="none"/><path d="M12 30 Q52 55 88 30" stroke="rgba(255,255,255,0.2)" stroke-width="1.5" fill="none"/><path d="M14 50 Q54 72 86 50" stroke="rgba(255,255,255,0.15)" stroke-width="1" fill="none"/></svg>
+        </div>
+        <div class="cat-overlay" style="background:linear-gradient(to top,rgba(0,0,0,0.85),transparent);opacity:1;"></div>
+        <div class="cat-label" style="opacity:1;transform:translateY(0);">
+          <div class="cat-label-name" style="font-size:1.4rem;">Sarees &<br>Ethnic Wear</div>
+          <div class="cat-label-count">50+ styles</div>
+        </div>
+      </div>
+      <div class="cat-name-static">Sarees & Ethnic</div>
+    </div>
+    <!-- Shirts -->
+    <div class="cat-card sr" style="transition-delay:0.25s" onclick="filterProducts('shirts')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#f8f8f8,#ebebeb);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 100 100" fill="none"><path d="M25 5 L5 30 L20 38 L20 95 L80 95 L80 38 L95 30 L75 5 Q62 15 50 13 Q38 15 25 5Z" fill="#111" stroke="#111" stroke-width="1"/><line x1="50" y1="13" x2="50" y2="60" stroke="white" stroke-width="2"/><line x1="44" y1="25" x2="56" y2="25" stroke="white" stroke-width="2"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Formal Shirts</div><div class="cat-label-count">25+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Formal Shirts</div>
+    </div>
+    <!-- Trousers -->
+    <div class="cat-card sr" style="transition-delay:0.3s" onclick="filterProducts('trousers')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#f0f0f0,#e4e4e4);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 90 130" fill="none"><path d="M8 5 L5 50 L18 50 L28 130 L42 130 L45 80 L48 130 L62 130 L72 50 L82 50 L82 5 Z" fill="#111" stroke="#111" stroke-width="1"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Trousers</div><div class="cat-label-count">20+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Trousers</div>
+    </div>
+    <!-- Co-ords -->
+    <div class="cat-card sr" style="transition-delay:0.35s" onclick="filterProducts('coords')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#f5f5f5,#e8e8e8);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 100 140" fill="none"><rect x="15" y="5" width="70" height="55" rx="2" fill="#111" stroke="#111" stroke-width="1"/><path d="M20 65 L10 75 L10 140 L48 140 L48 75 L52 75 L52 140 L90 140 L90 75 L80 65 Z" fill="#111" stroke="#111" stroke-width="1"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Co-ord Sets</div><div class="cat-label-count">22+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Co-ord Sets</div>
+    </div>
+    <!-- Watches -->
+    <div class="cat-card sr" style="transition-delay:0.4s" onclick="filterProducts('watches')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#eeeeee,#e0e0e0);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 100 120" fill="none"><rect x="25" y="20" width="50" height="80" rx="25" fill="none" stroke="#111" stroke-width="6"/><rect x="38" y="8" width="24" height="12" rx="3" fill="#111"/><rect x="38" y="100" width="24" height="12" rx="3" fill="#111"/><circle cx="50" cy="60" r="16" fill="none" stroke="#111" stroke-width="3"/><line x1="50" y1="50" x2="50" y2="60" stroke="#111" stroke-width="2.5" stroke-linecap="round"/><line x1="50" y1="60" x2="58" y2="65" stroke="#111" stroke-width="2" stroke-linecap="round"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Watches</div><div class="cat-label-count">15+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Watches</div>
+    </div>
+    <!-- Sunglasses -->
+    <div class="cat-card sr" style="transition-delay:0.45s" onclick="filterProducts('sunglasses')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#f5f5f5,#e8e8e8);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 140 70" fill="none"><rect x="5" y="20" width="55" height="35" rx="17" fill="none" stroke="#111" stroke-width="6"/><rect x="80" y="20" width="55" height="35" rx="17" fill="none" stroke="#111" stroke-width="6"/><line x1="60" y1="37" x2="80" y2="37" stroke="#111" stroke-width="5" stroke-linecap="round"/><line x1="1" y1="32" x2="5" y2="32" stroke="#111" stroke-width="5" stroke-linecap="round"/><line x1="135" y1="32" x2="139" y2="32" stroke="#111" stroke-width="5" stroke-linecap="round"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Sunglasses</div><div class="cat-label-count">18+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Sunglasses</div>
+    </div>
+    <!-- Jackets -->
+    <div class="cat-card sr" style="transition-delay:0.5s" onclick="filterProducts('jackets')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#f0f0f0,#e2e2e2);">
+        <div class="cat-icon-wrap">
+          <svg viewBox="0 0 110 120" fill="none"><path d="M25 8 L5 35 L22 42 L22 115 L88 115 L88 42 L105 35 L85 8 L70 22 L55 18 L40 22 Z" fill="#111" stroke="#111" stroke-width="1"/><line x1="55" y1="18" x2="55" y2="115" stroke="white" stroke-width="2.5"/></svg>
+        </div>
+        <div class="cat-overlay"></div>
+        <div class="cat-label"><div class="cat-label-name">Jackets</div><div class="cat-label-count">12+ styles</div></div>
+      </div>
+      <div class="cat-name-static">Jackets</div>
+    </div>
+    <!-- Accessories -->
+    <div class="cat-card sr" style="transition-delay:0.55s" onclick="filterProducts('accessories')">
+      <div class="cat-card-bg" style="background:linear-gradient(135deg,#1a1a1a,#2d2d2d);">
+        <div class="cat-icon-wrap" style="color:white;">
+          <svg viewBox="0 0 100 100" fill="none" style="opacity:0.5;"><circle cx="50" cy="50" r="35" stroke="white" stroke-width="5"/><circle cx="50" cy="50" r="10" fill="white"/><line x1="50" y1="15" x2="50" y2="30" stroke="white" stroke-width="4"/><line x1="50" y1="70" x2="50" y2="85" stroke="white" stroke-width="4"/><line x1="15" y1="50" x2="30" y2="50" stroke="white" stroke-width="4"/><line x1="70" y1="50" x2="85" y2="50" stroke="white" stroke-width="4"/></svg>
+        </div>
+        <div class="cat-overlay" style="background:linear-gradient(to top,rgba(0,0,0,0.8),transparent);opacity:1;"></div>
+        <div class="cat-label" style="opacity:1;transform:translateY(0);">
+          <div class="cat-label-name">Accessories</div>
+          <div class="cat-label-count">Bags, Belts & More</div>
+        </div>
+      </div>
+      <div class="cat-name-static">Accessories</div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW ARRIVALS TICKER -->
+<div class="ticker-section">
+  <div class="ticker-track">
+    <span class="ticker-item"><span class="ticker-img">👗</span><span class="ticker-name">Floral Kurti</span><span class="ticker-sep2">·</span><span class="ticker-price">₹899</span><span class="ticker-sep2">·</span>New</span>
+    <span class="ticker-item"><span class="ticker-img">👔</span><span class="ticker-name">Oxford Shirt</span><span class="ticker-sep2">·</span><span class="ticker-price">₹749</span><span class="ticker-sep2">·</span>New</span>
+    <span class="ticker-item"><span class="ticker-img">🕶️</span><span class="ticker-name">Retro Sunglasses</span><span class="ticker-sep2">·</span><span class="ticker-price">₹399</span><span class="ticker-sep2">·</span>Hot</span>
+    <span class="ticker-item"><span class="ticker-img">👖</span><span class="ticker-name">Slim Jeans</span><span class="ticker-sep2">·</span><span class="ticker-price">₹1,199</span><span class="ticker-sep2">·</span>Trending</span>
+    <span class="ticker-item"><span class="ticker-img">⌚</span><span class="ticker-name">Minimalist Watch</span><span class="ticker-sep2">·</span><span class="ticker-price">₹1,499</span><span class="ticker-sep2">·</span>New</span>
+    <span class="ticker-item"><span class="ticker-img">🧥</span><span class="ticker-name">Denim Jacket</span><span class="ticker-sep2">·</span><span class="ticker-price">₹1,899</span><span class="ticker-sep2">·</span>Limited</span>
+    <span class="ticker-item"><span class="ticker-img">👗</span><span class="ticker-name">Floral Kurti</span><span class="ticker-sep2">·</span><span class="ticker-price">₹899</span><span class="ticker-sep2">·</span>New</span>
+    <span class="ticker-item"><span class="ticker-img">👔</span><span class="ticker-name">Oxford Shirt</span><span class="ticker-sep2">·</span><span class="ticker-price">₹749</span><span class="ticker-sep2">·</span>New</span>
+    <span class="ticker-item"><span class="ticker-img">🕶️</span><span class="ticker-name">Retro Sunglasses</span><span class="ticker-sep2">·</span><span class="ticker-price">₹399</span><span class="ticker-sep2">·</span>Hot</span>
+    <span class="ticker-item"><span class="ticker-img">👖</span><span class="ticker-name">Slim Jeans</span><span class="ticker-sep2">·</span><span class="ticker-price">₹1,199</span><span class="ticker-sep2">·</span>Trending</span>
+    <span class="ticker-item"><span class="ticker-img">⌚</span><span class="ticker-name">Minimalist Watch</span><span class="ticker-sep2">·</span><span class="ticker-price">₹1,499</span><span class="ticker-sep2">·</span>New</span>
+    <span class="ticker-item"><span class="ticker-img">🧥</span><span class="ticker-name">Denim Jacket</span><span class="ticker-sep2">·</span><span class="ticker-price">₹1,899</span><span class="ticker-sep2">·</span>Limited</span>
+  </div>
+</div>
+
+<!-- PRODUCTS SECTION -->
+<section class="products-section" id="products">
+  <div class="sec-header sr">
+    <div class="sec-eyebrow">Latest Collection</div>
+    <h2 class="sec-title">Fresh <em>Arrivals</em> — All Categories</h2>
+  </div>
+  <div class="filter-bar" id="filterBar">
+    <div class="filter-tab active" onclick="filterProducts('all')">All</div>
+    <div class="filter-tab" onclick="filterProducts('kurtis')">Kurtis & Sets</div>
+    <div class="filter-tab" onclick="filterProducts('dresses')">Dresses</div>
+    <div class="filter-tab" onclick="filterProducts('tshirts')">T-Shirts</div>
+    <div class="filter-tab" onclick="filterProducts('shirts')">Formal Shirts</div>
+    <div class="filter-tab" onclick="filterProducts('jeans')">Jeans</div>
+    <div class="filter-tab" onclick="filterProducts('trousers')">Trousers</div>
+    <div class="filter-tab" onclick="filterProducts('sarees')">Sarees</div>
+    <div class="filter-tab" onclick="filterProducts('coords')">Co-ords</div>
+    <div class="filter-tab" onclick="filterProducts('jackets')">Jackets</div>
+    <div class="filter-tab" onclick="filterProducts('watches')">Watches</div>
+    <div class="filter-tab" onclick="filterProducts('sunglasses')">Sunglasses</div>
+    <div class="filter-tab" onclick="filterProducts('accessories')">Accessories</div>
+  </div>
+  <div class="products-grid" id="productsGrid">
+    <!-- Products injected by JS -->
+  </div>
+  <div style="text-align:center;padding:60px 6vw 0;" class="sr">
+    <a href="https://wa.me/91XXXXXXXXXX" class="btn-black"><span>See All Products on WhatsApp</span><span>→</span></a>
+  </div>
+</section>
+
+<!-- WHATSAPP SECTION -->
+<section class="wa-section" id="whatsapp">
+  <div class="wa-left sr">
+    <div class="sec-eyebrow">How It Works</div>
+    <h2 class="sec-title">Get Exclusive Drops <em>First</em></h2>
+    <p class="wa-desc">Top & Notch posts fresh collections every single day to their WhatsApp group — up to 15 new styles, with full details and pricing. Join 2,400+ fashion lovers who never miss a drop.</p>
+    <div class="wa-steps">
+      <div class="wa-step">
+        <div class="wa-step-num">01</div>
+        <div class="wa-step-text">
+          <h4>Daily Photo Drops</h4>
+          <p>10–15 fresh styles are posted every morning with high-quality photos, first in the group.</p>
+        </div>
+      </div>
+      <div class="wa-step">
+        <div class="wa-step-num">02</div>
+        <div class="wa-step-text">
+          <h4>Product Details Follow</h4>
+          <p>Name, fabric, sizes available, colour options, and price — all posted right after the photos.</p>
+        </div>
+      </div>
+      <div class="wa-step">
+        <div class="wa-step-num">03</div>
+        <div class="wa-step-text">
+          <h4>DM to Reserve</h4>
+          <p>Just reply or DM to book your piece. Stocks are limited — first come, first served.</p>
+        </div>
+      </div>
+      <div class="wa-step">
+        <div class="wa-step-num">04</div>
+        <div class="wa-step-text">
+          <h4>Fast Pan-India Delivery</h4>
+          <p>Packed with care and shipped quickly to your door anywhere in India.</p>
+        </div>
+      </div>
+    </div>
+    <div class="wa-cta-row">
+      <a href="https://wa.me/91XXXXXXXXXX" class="btn-wa-green" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Join WhatsApp Group
+      </a>
+      <a href="#products" class="btn-white-outline">Browse Website</a>
+    </div>
+  </div>
+  <div class="wa-phone sr" style="transition-delay:0.2s">
+    <div class="phone-shell">
+      <div class="phone-inner">
+        <div class="phone-status"><div class="phone-time">9:41</div><div class="phone-icons"><span>📶</span><span>🔋</span></div></div>
+        <div class="wa-chat-header">
+          <div class="wa-avatar">
+            <svg width="22" height="22" viewBox="0 0 100 100" fill="none"><path d="M35 18 C35 10 42 5 50 5 C58 5 65 10 65 18 L65 30 C65 38 58 43 50 43 C42 43 35 38 35 30 Z" stroke="white" stroke-width="7" fill="none"/><path d="M57 35 C65 35 70 42 70 50 C70 58 65 65 57 65 L45 65 C37 65 32 58 32 50 C32 42 37 35 45 35 Z" stroke="white" stroke-width="7" fill="none"/><path d="M65 70 C65 78 58 83 50 83 C42 83 35 78 35 70 L35 58 C35 50 42 45 50 45 C58 45 65 50 65 58 Z" stroke="white" stroke-width="7" fill="none"/><path d="M43 65 C35 65 30 58 30 50 C30 42 35 35 43 35 L55 35 C63 35 68 42 68 50 C68 58 63 65 55 65 Z" stroke="white" stroke-width="7" fill="none"/></svg>
+          </div>
+          <div class="wa-group-info">
+            <div class="wa-group-name">Top & Notch Official 🛍️</div>
+            <div class="wa-group-status">2,431 members</div>
+          </div>
+        </div>
+        <div class="wa-messages">
+          <div class="wa-sys-msg">Today, 9:00 AM</div>
+          <div class="wa-bubble in">🌟 Good morning everyone! Fresh drops are here! 🔥</div>
+          <div class="wa-img-bubble">
+            <div class="wa-img-inner">
+              <div class="wa-img-thumb">
+                <span style="font-size:2rem;">👗</span>
+                <div class="wa-img-count">📷 1/14</div>
+              </div>
+              <div class="wa-img-caption">
+                <strong>✨ EMBROIDERED GEORGETTE KURTI SET</strong><br>
+                Fabric: Georgette + Dupatta<br>
+                Sizes: S / M / L / XL / XXL<br>
+                Colors: Ivory, Blush, Sky<br>
+                💰 <strong>Only ₹1,299!</strong>
+                <div class="wa-time-label">9:03 AM ✓✓</div>
+              </div>
+            </div>
+          </div>
+          <div class="wa-bubble in">
+            📦 Next: Oxford Stripe Shirt for Men<br>
+            Size: S-XXL | ₹749 only!<br>
+            Colors: White, Blue, Grey
+            <div class="wa-time-label">9:05 AM ✓✓</div>
+          </div>
+          <div class="wa-bubble out">
+            Kurti in ivory, size M please!<br>
+            <div class="wa-time-label">9:07 AM ✓✓</div>
+          </div>
+          <div class="wa-bubble in">✅ Booked for you! Sending payment link 💫<div class="wa-time-label">9:08 AM ✓✓</div></div>
+        </div>
+        <div class="wa-input-row">
+          <div class="wa-input-mock">Message Top & Notch...</div>
+          <div class="wa-send-mock">➤</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LOOK BOOK -->
+<section class="lookbook" id="lookbook">
+  <div class="sec-header sr">
+    <div class="sec-eyebrow">Style Gallery</div>
+    <h2 class="sec-title">The <em>Look Book</em></h2>
+  </div>
+  <div class="lb-scroll">
+    <div class="lb-item sr"><div class="lb-item-bg" style="background:linear-gradient(135deg,#f5f5f5,#e5e5e5);">👗</div><div class="lb-item-caption"><div class="lb-cap-name">Summer Kurti</div><div class="lb-cap-price">From ₹799</div></div></div>
+    <div class="lb-item sr" style="transition-delay:0.05s"><div class="lb-item-bg" style="background:linear-gradient(135deg,#1a1a1a,#333);">👔</div><div class="lb-item-caption"><div class="lb-cap-name">Smart Shirt</div><div class="lb-cap-price">From ₹649</div></div></div>
+    <div class="lb-item sr" style="transition-delay:0.1s"><div class="lb-item-bg" style="background:linear-gradient(135deg,#f0f0f0,#ddd);">💃</div><div class="lb-item-caption"><div class="lb-cap-name">Evening Dress</div><div class="lb-cap-price">From ₹1,199</div></div></div>
+    <div class="lb-item sr" style="transition-delay:0.15s"><div class="lb-item-bg" style="background:linear-gradient(135deg,#e8e8e8,#d5d5d5);">👖</div><div class="lb-item-caption"><div class="lb-cap-name">Denim Jeans</div><div class="lb-cap-price">From ₹999</div></div></div>
+    <div class="lb-item sr" style="transition-delay:0.2s"><div class="lb-item-bg" style="background:linear-gradient(135deg,#2d2d2d,#111);">🕶️</div><div class="lb-item-caption"><div class="lb-cap-name">Sunglasses</div><div class="lb-cap-price">From ₹349</div></div></div>
+    <div class="lb-item sr" style="transition-delay:0.25s"><div class="lb-item-bg" style="background:linear-gradient(135deg,#f5f5f5,#eee);">👘</div><div class="lb-item-caption"><div class="lb-cap-name">Silk Saree</div><div class="lb-cap-price">From ₹1,499</div></div></div>
+    <div class="lb-item sr" style="transition-delay:0.3s"><div class="lb-item-bg" style="background:linear-gradient(135deg,#efefef,#e0e0e0);">⌚</div><div class="lb-item-caption"><div class="lb-cap-name">Premium Watch</div><div class="lb-cap-price">From ₹1,299</div></div></div>
+    <div class="lb-item sr" style="transition-delay:0.35s"><div class="lb-item-bg" style="background:linear-gradient(135deg,#1a1a1a,#2d2d2d);">🧥</div><div class="lb-item-caption"><div class="lb-cap-name">Denim Jacket</div><div class="lb-cap-price">From ₹1,599</div></div></div>
+  </div>
+</section>
+
+<!-- WHY SECTION -->
+<section class="why-section" id="about">
+  <div class="sec-header sr" style="text-align:center;max-width:600px;margin:0 auto 0;">
+    <div class="sec-eyebrow" style="justify-content:center;">Why Top & Notch</div>
+    <h2 class="sec-title">The <em>Difference</em><br>You Can Feel</h2>
+  </div>
+  <div class="why-grid">
+    <div class="why-card sr">
+      <div class="why-card-num">01</div>
+      <div class="why-card-icon">💎</div>
+      <div class="why-card-title">Premium Quality</div>
+      <p class="why-card-text">Every piece is hand-curated for superior fabric, finish, and style. We never compromise on what goes on your body.</p>
+    </div>
+    <div class="why-card sr" style="transition-delay:0.1s">
+      <div class="why-card-num">02</div>
+      <div class="why-card-icon">💰</div>
+      <div class="why-card-title">Truly Affordable</div>
+      <p class="why-card-text">Designer looks at prices that make sense. Look like a million dollars without spending it. Every. Single. Day.</p>
+    </div>
+    <div class="why-card sr" style="transition-delay:0.2s">
+      <div class="why-card-num">03</div>
+      <div class="why-card-icon">📱</div>
+      <div class="why-card-title">WhatsApp-First Drops</div>
+      <p class="why-card-text">Get first access before anyone else. 14+ fresh styles every morning, straight to your phone.</p>
+    </div>
+    <div class="why-card sr" style="transition-delay:0.3s">
+      <div class="why-card-num">04</div>
+      <div class="why-card-icon">🚀</div>
+      <div class="why-card-title">Pan-India Delivery</div>
+      <p class="why-card-text">Order from anywhere in India. Packed beautifully, shipped fast, delivered with love to your doorstep.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi-section">
+  <div class="sec-header sr" style="text-align:center;max-width:600px;margin:0 auto 0;">
+    <div class="sec-eyebrow" style="justify-content:center;">Customer Love</div>
+    <h2 class="sec-title">What Our <em>Community</em> Says</h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card sr">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Been in the WhatsApp group 8 months. Every single purchase has been amazing — quality is unreal for the price. My whole wardrobe is Top & Notch now!</p>
+      <div class="testi-author">— Priya S., New Delhi</div>
+      <div class="testi-wa"><svg width="12" height="12" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp Group Member</div>
+    </div>
+    <div class="testi-card sr" style="transition-delay:0.15s">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">The watch I bought is getting compliments EVERY DAY. My colleagues think I spent ₹10,000+ on it. I paid ₹1,499. This place is a hidden gem.</p>
+      <div class="testi-author">— Rahul K., Mumbai</div>
+      <div class="testi-wa"><svg width="12" height="12" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp Group Member</div>
+    </div>
+    <div class="testi-card sr" style="transition-delay:0.3s">
+      <div class="testi-quote-mark">"</div>
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Ordered a co-ord set and two kurtis on Monday. It arrived Thursday. The packaging was beautiful and the clothes matched exactly what was shown. 10/10!</p>
+      <div class="testi-author">— Ananya M., Bangalore</div>
+      <div class="testi-wa"><svg width="12" height="12" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>WhatsApp Group Member</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner" id="contact">
+  <div class="cta-grid-lines"></div>
+  <div class="cta-content">
+    <h2 class="cta-h sr">Join 2,400+<br><em>Fashion Lovers</em></h2>
+    <p class="cta-sub sr">Get exclusive first access to daily drops, special deals, and limited-edition pieces — all on WhatsApp. It's free. It's fast. It's Top & Notch.</p>
+    <div class="cta-actions sr">
+      <a href="https://wa.me/91XXXXXXXXXX" class="btn-wa-green" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Join WhatsApp Group — Free
+      </a>
+      <a href="#products" class="btn-white-outline">Browse All Products</a>
+    </div>
+    <div class="cta-member-count sr">
+      <div class="cta-avatars">
+        <div class="cta-av">P</div><div class="cta-av">R</div><div class="cta-av">A</div><div class="cta-av">S</div><div class="cta-av">+</div>
+      </div>
+      <span>2,400+ members already inside</span>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-logo-row">
+        <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+          <path d="M35 18 C35 10 42 5 50 5 C58 5 65 10 65 18 L65 30 C65 38 58 43 50 43 C42 43 35 38 35 30 Z" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M57 35 C65 35 70 42 70 50 C70 58 65 65 57 65 L45 65 C37 65 32 58 32 50 C32 42 37 35 45 35 Z" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M65 70 C65 78 58 83 50 83 C42 83 35 78 35 70 L35 58 C35 50 42 45 50 45 C58 45 65 50 65 58 Z" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+          <path d="M43 65 C35 65 30 58 30 50 C30 42 35 35 43 35 L55 35 C63 35 68 42 68 50 C68 58 63 65 55 65 Z" stroke="white" stroke-width="8" fill="none" stroke-linecap="round"/>
+        </svg>
+        <div class="footer-brand-name">TOP & NOTCH</div>
+      </div>
+      <div class="footer-tagline">Affordable Luxury Clothing</div>
+      <p class="footer-desc">Fashion that speaks for itself. Curated drops, everyday luxury, and a community that loves style as much as you do. New arrivals every single day.</p>
+      <div class="footer-social">
+        <a href="#" class="fs-link">📸</a>
+        <a href="#" class="fs-link">📘</a>
+        <a href="https://wa.me/91XXXXXXXXXX" class="fs-link">💬</a>
+        <a href="#" class="fs-link">🐦</a>
+      </div>
+    </div>
+    <div>
+      <div class="footer-col-title">Shop</div>
+      <ul class="footer-links">
+        <li><a href="#" onclick="filterProducts('kurtis')">Kurtis & Sets</a></li>
+        <li><a href="#" onclick="filterProducts('dresses')">Dresses</a></li>
+        <li><a href="#" onclick="filterProducts('tshirts')">T-Shirts</a></li>
+        <li><a href="#" onclick="filterProducts('jeans')">Jeans</a></li>
+        <li><a href="#" onclick="filterProducts('sarees')">Sarees</a></li>
+        <li><a href="#" onclick="filterProducts('watches')">Watches</a></li>
+        <li><a href="#" onclick="filterProducts('sunglasses')">Sunglasses</a></li>
+        <li><a href="#" onclick="filterProducts('accessories')">Accessories</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Info</div>
+      <ul class="footer-links">
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Returns & Exchange</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Connect</div>
+      <ul class="footer-links">
+        <li><a href="https://wa.me/91XXXXXXXXXX">WhatsApp Group</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+      </ul>
+      <div class="footer-wa-box" style="margin-top:20px;">
+        <div class="fwa-title">Join WhatsApp</div>
+        <p class="fwa-text">Daily drops, exclusive deals, early access — all free.</p>
+        <a href="https://wa.me/91XXXXXXXXXX" class="fwa-btn" target="_blank">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Join Now — Free
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="footer-copy">© 2026 Top & Notch. All rights reserved. Crafted with ♥</div>
+    <div class="footer-copy">Made for <a href="#">Top & Notch</a></div>
+  </div>
+</footer>
+
+<script>
+/* ========== CURSOR ========== */
+const cur = document.getElementById('cur');
+const curRing = document.getElementById('cur-ring');
+let mx=0, my=0, rx=0, ry=0;
+document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; cur.style.left=mx+'px'; cur.style.top=my+'px'; });
+function animRing(){ rx+=(mx-rx)*0.14; ry+=(my-ry)*0.14; curRing.style.left=rx+'px'; curRing.style.top=ry+'px'; requestAnimationFrame(animRing); }
+animRing();
+document.querySelectorAll('a,button,.cat-card,.product-card,.filter-tab,.why-card,.testi-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
+});
+
+/* ========== LOADER ========== */
+window.addEventListener('load',()=>{ setTimeout(()=>{ document.getElementById('loader').classList.add('out'); },2200); });
+
+/* ========== SCROLL REVEAL ========== */
+const srEls=document.querySelectorAll('.sr');
+const srObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('vis'); srObs.unobserve(e.target); } });
+},{threshold:0.1});
+srEls.forEach(el=>srObs.observe(el));
+
+/* ========== NAV SCROLL ========== */
+window.addEventListener('scroll',()=>{
+  document.getElementById('mainNav').classList.toggle('scrolled',window.scrollY>40);
+});
+
+/* ========== PRODUCT DATA ========== */
+const products = [
+  {id:1,cat:'kurtis',name:'Pearl Embroidered Georgette Kurti',detail:'Sizes: S/M/L/XL · Ivory, Rose, Navy',price:'₹1,299',tag:'new',emoji:'👗',bg:'#f8f8f8'},
+  {id:2,cat:'kurtis',name:'Anarkali Printed Cotton Set',detail:'Sizes: XS–XXL · 6 Colors',price:'₹999',tag:'hot',emoji:'👗',bg:'#f5f0ee'},
+  {id:3,cat:'kurtis',name:'Embroidered Mirror Work Kurti',detail:'Sizes: S/M/L/XL · Multicolor',price:'₹1,199',tag:'new',emoji:'👗',bg:'#f0f5f0'},
+  {id:4,cat:'dresses',name:'Floral Chiffon Maxi Dress',detail:'Sizes: XS/S/M/L · Floral Print',price:'₹1,499',tag:'hot',emoji:'💃',bg:'#f8f5f0'},
+  {id:5,cat:'dresses',name:'Velvet Puff Sleeve Mini',detail:'Sizes: S/M/L · Plum, Black, Emerald',price:'₹1,649',tag:'new',emoji:'💃',bg:'#f0f0f5'},
+  {id:6,cat:'dresses',name:'Wrap Tie Midi Dress',detail:'Sizes: XS–XL · Sage, Blush',price:'₹1,299',tag:'',emoji:'💃',bg:'#f5f5f0'},
+  {id:7,cat:'tshirts',name:'Oversized Graphic Tee',detail:'Sizes: S/M/L/XL/XXL · 8 designs',price:'₹599',tag:'hot',emoji:'👕',bg:'#f0f5f5'},
+  {id:8,cat:'tshirts',name:'Premium Cotton Round Neck',detail:'Sizes: S–XXL · 12 solid colors',price:'₹449',tag:'',emoji:'👕',bg:'#f8f8f5'},
+  {id:9,cat:'tshirts',name:'Polo Collar Pique Tee',detail:'Sizes: S/M/L/XL · Navy, White, Black',price:'₹649',tag:'new',emoji:'👕',bg:'#f0f0f0'},
+  {id:10,cat:'shirts',name:'Oxford Stripe Formal Shirt',detail:'Sizes: S–XXL · White, Blue, Grey',price:'₹749',tag:'new',emoji:'👔',bg:'#f5f8f5'},
+  {id:11,cat:'shirts',name:'Linen Casual Summer Shirt',detail:'Sizes: S/M/L/XL · Beige, Sky, Olive',price:'₹849',tag:'',emoji:'👔',bg:'#f5f5f0'},
+  {id:12,cat:'shirts',name:'Mandarin Collar Kurta',detail:'Sizes: S–XXL · White, Off-White',price:'₹899',tag:'hot',emoji:'👔',bg:'#f0f5f8'},
+  {id:13,cat:'jeans',name:'Slim Fit Dark Wash Jeans',detail:'Sizes: 28–38 · Dark Blue, Black',price:'₹1,199',tag:'new',emoji:'👖',bg:'#eef0f5'},
+  {id:14,cat:'jeans',name:'Straight Leg Light Denim',detail:'Sizes: 28–36 · Light Blue',price:'₹999',tag:'',emoji:'👖',bg:'#f0f2f8'},
+  {id:15,cat:'jeans',name:'Wide Leg Mom Jeans',detail:'Sizes: 26–34 · Vintage Wash',price:'₹1,099',tag:'hot',emoji:'👖',bg:'#f5f0f0'},
+  {id:16,cat:'trousers',name:'Pleated Formal Trousers',detail:'Sizes: 28–38 · Black, Navy, Grey',price:'₹899',tag:'',emoji:'👖',bg:'#f5f5f5'},
+  {id:17,cat:'trousers',name:'Cargo Utility Pants',detail:'Sizes: S/M/L/XL · Khaki, Olive, Black',price:'₹1,099',tag:'new',emoji:'👖',bg:'#f0f0ee'},
+  {id:18,cat:'sarees',name:'Chiffon Sequin Saree',detail:'Free Size · Teal, Wine, Champagne',price:'₹2,199',tag:'new',emoji:'👘',bg:'#f5f0f5'},
+  {id:19,cat:'sarees',name:'Banarasi Silk Saree',detail:'Free Size · Red, Green, Gold',price:'₹3,499',tag:'',emoji:'👘',bg:'#f8f5f0'},
+  {id:20,cat:'sarees',name:'Cotton Linen Printed Saree',detail:'Free Size · Abstract Print',price:'₹1,499',tag:'hot',emoji:'👘',bg:'#f0f5f0'},
+  {id:21,cat:'coords',name:'Floral Crop & Palazzo Set',detail:'Sizes: XS–L · Sage, Mauve',price:'₹1,899',tag:'new',emoji:'👗',bg:'#f5f5f0'},
+  {id:22,cat:'coords',name:'Ribbed Knit Co-ord Set',detail:'Sizes: S/M/L · Brown, Cream',price:'₹1,699',tag:'hot',emoji:'👗',bg:'#f0f0f0'},
+  {id:23,cat:'jackets',name:'Denim Patchwork Jacket',detail:'Sizes: S/M/L/XL · Medium Wash',price:'₹1,899',tag:'new',emoji:'🧥',bg:'#eef0f5'},
+  {id:24,cat:'jackets',name:'Bomber Satin Jacket',detail:'Sizes: S/M/L/XL · Black, Olive',price:'₹2,199',tag:'',emoji:'🧥',bg:'#f0f0f0'},
+  {id:25,cat:'watches',name:'Minimalist Mesh Strap Watch',detail:'Silver/Gold · Unisex',price:'₹1,499',tag:'new',emoji:'⌚',bg:'#f5f5f0'},
+  {id:26,cat:'watches',name:'Chronograph Sport Watch',detail:'Black, Blue · Water Resistant',price:'₹1,999',tag:'hot',emoji:'⌚',bg:'#f0f0f0'},
+  {id:27,cat:'watches',name:'Rose Gold Ladies Watch',detail:'Rose Gold / White · Slim Dial',price:'₹1,299',tag:'new',emoji:'⌚',bg:'#fdf5f0'},
+  {id:28,cat:'sunglasses',name:'Retro Round Tinted Frames',detail:'Brown Lens · UV400 Protected',price:'₹399',tag:'hot',emoji:'🕶️',bg:'#f5f0e8'},
+  {id:29,cat:'sunglasses',name:'Aviator Classic Sunglasses',detail:'Gold/Silver Frame · UV400',price:'₹449',tag:'new',emoji:'🕶️',bg:'#f0f0f0'},
+  {id:30,cat:'sunglasses',name:'Oversized Cat-Eye Frames',detail:'Black/Tortoise · UV400',price:'₹499',tag:'',emoji:'🕶️',bg:'#f5f0f5'},
+  {id:31,cat:'accessories',name:'Vegan Leather Tote Bag',detail:'Black, Camel, Tan',price:'₹1,299',tag:'new',emoji:'👜',bg:'#f5f0e8'},
+  {id:32,cat:'accessories',name:'Braided Leather Belt',detail:'Sizes: 28–42 · Brown, Black',price:'₹499',tag:'',emoji:'🎽',bg:'#f0f0ee'},
+  {id:33,cat:'accessories',name:'Stainless Steel Bracelet Set',detail:'Silver / Gold · Adjustable',price:'₹649',tag:'hot',emoji:'💎',bg:'#f5f5f0'},
+];
+
+function getProductHTML(p){
+  const tagHTML = p.tag ? `<div class="product-tag tag-${p.tag}">${p.tag==='new'?'New':p.tag==='hot'?'🔥 Hot':'Sale'}</div>` : '';
+  return `
+    <div class="product-card" data-cat="${p.cat}">
+      <div class="product-img-wrap" style="background:${p.bg};">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:4rem;">${p.emoji}</div>
+        ${tagHTML}
+        <div class="product-actions">
+          <div class="pa-btn">Quick View</div>
+          <a href="https://wa.me/91XXXXXXXXXX?text=Hi! I want to order: ${encodeURIComponent(p.name)}" class="pa-btn wa" target="_blank">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="product-info">
+        <div class="pi-cat">${p.cat.charAt(0).toUpperCase()+p.cat.slice(1)}</div>
+        <div class="pi-name">${p.name}</div>
+        <div class="pi-detail">${p.detail}</div>
+        <div class="pi-footer">
+          <div class="pi-price">${p.price}</div>
+        </div>
+      </div>
+    </div>`;
+}
+
+function filterProducts(cat){
+  const grid = document.getElementById('productsGrid');
+  const tabs = document.querySelectorAll('.filter-tab');
+  tabs.forEach(t=>{
+    const onclick = t.getAttribute('onclick');
+    t.classList.toggle('active', onclick && onclick.includes(`'${cat}'`));
+  });
+  const filtered = cat==='all' ? products : products.filter(p=>p.cat===cat);
+  grid.innerHTML = filtered.map(getProductHTML).join('');
+  if(cat!=='all') document.getElementById('products').scrollIntoView({behavior:'smooth'});
+}
+filterProducts('all');
+</script>
+</body>
+</html>
